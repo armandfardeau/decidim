@@ -6,7 +6,7 @@ require "rails-controller-testing"
 # `capybara-screenshot` instead. Needs to be required _before_ rspec/rails,
 # because `rspec-rails` uses these hooks, so we need the monkeypatch to be
 # applied first so that it uses the monkeypatched version.
-require_relative "screenshot_helper_ext"
+require_relative "ext/screenshot_helper"
 require "rspec/rails"
 
 require "rspec/cells"
@@ -42,5 +42,4 @@ RSpec.configure do |config|
   config.include ActionView::Helpers::SanitizeHelper
   config.include ERB::Util
   config.include Capybara::ReactSelect, type: :system
-  config.include Decidim::ScreenshotHelperExt, type: :system
 end
