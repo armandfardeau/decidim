@@ -7,7 +7,5 @@ require "action_dispatch/system_testing/test_helpers/setup_and_teardown"
     super
   end
 
-  def after_teardown
-    super
-  end
+  def after_teardown; end
 end

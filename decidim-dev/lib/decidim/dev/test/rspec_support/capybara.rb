@@ -55,6 +55,8 @@ RSpec.configure do |config|
 
   config.after :each, type: :system do |example|
     Capybara::Screenshot::RSpec.after_failed_example(example)
+
+    Capybara.reset_sessions!
   end
 
   config.before :each, driver: :rack_test do
