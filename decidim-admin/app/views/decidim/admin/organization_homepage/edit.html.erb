@@ -25,7 +25,7 @@
           <p class="mb-m">Bloques disponibles</p>
           <ul class="draggable-list js-connect js-list-availables">
             <% inactive_blocks.each do |content_block_or_manifest| %>
-            <li draggable="true">
+            <li draggable="true" data-content-block-id="<%= content_block_or_manifest.try(:id) %>">
               <div class="draggable-content">
                 <%= content_block_or_manifest.try(:manifest_name) || content_block_or_manifest.name %>
                 <div>

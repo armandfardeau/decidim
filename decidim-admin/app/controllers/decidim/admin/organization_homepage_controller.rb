@@ -14,12 +14,12 @@ module Decidim
 
       def update
         enforce_permission_to :update, :organization, organization: current_organization
-          ReorderParticipatoryProcessSteps.call(collection, params[:items_ids]) do
+          ReorderContentBlocks.call(content_blocks, params[:ids]) do
             on(:ok) do
               head :ok
             end
             on(:invalid) do
-              head 500
+              head :bad_request
             end
           end
       end
