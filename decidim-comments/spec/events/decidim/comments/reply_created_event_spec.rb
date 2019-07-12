@@ -4,6 +4,7 @@ require "spec_helper"
 
 describe Decidim::Comments::ReplyCreatedEvent do
   include Decidim::SanitizeHelper
+  include Rails.application.routes.mounted_helpers
   include_context "when a simple event"
 
   let(:resource) { comment.root_commentable }
@@ -14,6 +15,7 @@ describe Decidim::Comments::ReplyCreatedEvent do
   let(:comment_author_name) { decidim_html_escape comment.author.name }
   let(:event_name) { "decidim.events.comments.reply_created" }
   let(:extra) { { comment_id: comment.id } }
+  let(:notifications_settings_url) { decidim.notifications_settings_url(host: resource.organization.host) }
 
   it_behaves_like "a simple event"
 
@@ -32,7 +34,7 @@ describe Decidim::Comments::ReplyCreatedEvent do
   describe "email_outro" do
     it "is generated correctly" do
       expect(subject.email_outro)
-        .to eq("You have received this notification because your comment was replied.")
+        .to eq("You have received this notification because your comment was replied. You can stop receiving notifications by clicking this <a href=\"#{notifications_settings_url}\">link</a>.")
     end
   end
 

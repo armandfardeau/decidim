@@ -7,6 +7,7 @@ module Decidim
     describe CommentByFollowedUserEvent do
       include Decidim::ComponentPathHelper
       include Decidim::SanitizeHelper
+      include Rails.application.routes.mounted_helpers
 
       include_context "when a simple event"
 
@@ -19,6 +20,7 @@ module Decidim
       let(:author_name) { decidim_html_escape author.name }
       let(:author_path) { author_presenter&.profile_path.to_s }
       let(:author_nickname) { author_presenter&.nickname.to_s }
+      let(:notifications_settings_url) { decidim.notifications_settings_url(host: resource.organization.host) }
 
       it_behaves_like "a simple event"
 
@@ -38,7 +40,7 @@ module Decidim
       describe "email_outro" do
         it "is generated correctly" do
           expect(subject.email_outro)
-            .to include("You have received this notification because you are following #{author_name}")
+            .to include("You have received this notification because you are following #{author_name}. You can unfollow this user from their profile page or stop receiving notifications by clicking this <a href=\"#{notifications_settings_url}\">link</a>.")
         end
       end
 

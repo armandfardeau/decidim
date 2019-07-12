@@ -12,6 +12,7 @@ module Decidim
       include Decidim::Events::NotificationEvent
       include Decidim::ComponentPathHelper
       include Decidim::SanitizeHelper
+      include Rails.application.routes.mounted_helpers
 
       class_attribute :i18n_interpolations
       self.i18n_interpolations = []
@@ -91,6 +92,10 @@ module Decidim
         @resource_url ||= main_component_url(resource)
       end
 
+      def notifications_settings_url
+        @notifications_settings_url = decidim.notifications_settings_url(host: resource.organization.host)
+      end
+
       # Caches the URL for the resource's participatory space.
       def participatory_space_url
         return unless participatory_space
@@ -122,6 +127,7 @@ module Decidim
           resource_url: resource_url,
           participatory_space_title: participatory_space_title,
           participatory_space_url: participatory_space_url,
+          notifications_settings_url: notifications_settings_url,
           scope: i18n_scope
         }
       end

@@ -3,6 +3,7 @@
 require "spec_helper"
 
 describe Decidim::Comments::UserMentionedEvent do
+  include Rails.application.routes.mounted_helpers
   include_context "when a simple event"
 
   let(:resource) { comment.commentable }
@@ -10,6 +11,7 @@ describe Decidim::Comments::UserMentionedEvent do
   let(:comment_author) { comment.author }
   let(:event_name) { "decidim.events.comments.user_mentioned" }
   let(:extra) { { comment_id: comment.id } }
+  let(:notifications_settings_url) { decidim.notifications_settings_url(host: resource.organization.host) }
 
   it_behaves_like "a simple event"
 
@@ -28,7 +30,7 @@ describe Decidim::Comments::UserMentionedEvent do
   describe "email_outro" do
     it "is generated correctly" do
       expect(subject.email_outro)
-        .to eq("You have received this notification because you have been mentioned in #{resource.title}.")
+        .to eq("You have received this notification because you have been mentioned in #{resource.title}. You can stop receiving notifications by clicking this <a href=\"#{notifications_settings_url}\">link</a>.")
     end
   end
 
