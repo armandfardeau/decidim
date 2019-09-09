@@ -5,7 +5,7 @@ require "spec_helper"
 module Decidim::Conferences
   describe Admin::UpdateConference do
     describe "call" do
-      let(:my_conference) { create :conference }
+      let(:my_conference) { create :conference, :with_custom_link }
       let(:user) { create :user, :admin, :confirmed, organization: my_conference.organization }
       let!(:participatory_processes) do
         create_list(
@@ -42,6 +42,8 @@ module Decidim::Conferences
             slogan_es: my_conference.slogan,
             location: my_conference.location,
             slug: my_conference.slug,
+            custom_link_name: my_conference.custom_link_name,
+            custom_link_url: my_conference.custom_link_url,
             hashtag: my_conference.hashtag,
             hero_image: nil,
             banner_image: nil,
@@ -190,6 +192,8 @@ module Decidim::Conferences
             title: title,
             slogan: my_conference.slogan,
             slug: my_conference.slug,
+            custom_link_name: my_conference.custom_link_name,
+            custom_link_url: my_conference.custom_link_url,
             hashtag: my_conference.slug,
             short_description: my_conference.short_description,
             description: my_conference.description,

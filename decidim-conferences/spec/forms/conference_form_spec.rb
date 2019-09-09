@@ -38,6 +38,12 @@ module Decidim
           }
         end
         let(:slug) { "slug" }
+        let(:custom_link) do
+          {
+            name: "my-custom-link",
+            url: "https://decidim.org"
+          }
+        end
         let(:attachment) { Decidim::Dev.test_file("city.jpeg", "image/jpeg") }
         let(:show_statistics) { true }
         let(:objectives) do
@@ -67,6 +73,8 @@ module Decidim
               "hero_image" => attachment,
               "banner_image" => attachment,
               "slug" => slug,
+              "custom_link_name" => custom_link[:name],
+              "custom_link_url" => custom_link[:url],
               "show_statistics" => show_statistics,
               "objectives_en" => objectives[:en],
               "objectives_es" => objectives[:es],
@@ -180,6 +188,27 @@ module Decidim
 
             it "is valid" do
               expect(subject).to be_valid
+            end
+          end
+        end
+
+        context "when using a custom link" do
+          before do
+            create(:conference, :with_custom_link)
+          end
+
+          context "when missing an name" do
+            let(:custom_link_name) { nil }
+
+            it "is invalid" do
+              expect(subject).to be_invalid
+            end
+          end
+          context "when missing an url" do
+            let(:custom_link_url) { nil }
+
+            it "is invalid" do
+              expect(subject).to be_invalid
             end
           end
         end
