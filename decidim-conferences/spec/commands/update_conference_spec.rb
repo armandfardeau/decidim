@@ -178,6 +178,16 @@ module Decidim::Conferences
             expect(my_conference.banner_image).to be_present
           end
         end
+
+        context "when there is a custom link" do
+          it "updates the custom link" do
+            command.call
+            my_conference.reload
+
+            expect(translated(my_conference.custom_link_name)).to eq "My custom link name"
+            expect(my_conference.custom_link_url).to eq "https://decidim.org"
+          end
+        end
       end
 
       describe "events" do
@@ -296,43 +306,6 @@ module Decidim::Conferences
 
         context "when the location changes" do
           let(:location) { "some location" }
-
-          it "notifies the change" do
-            expect(Decidim::EventsManager)
-              .to receive(:publish)
-                    .with(
-                      event: "decidim.events.conferences.conference_updated",
-                      event_class: UpdateConferenceEvent,
-                      resource: my_conference,
-                      followers: [user]
-                    )
-
-            command.call
-          end
-        end
-
-        context "when the custom_link_name changes" do
-          let(:custom_link_name) do
-            {
-              en: "New link"
-            }
-          end
-
-          it "notifies the change" do
-            expect(Decidim::EventsManager)
-              .to receive(:publish)
-                    .with(
-                      event: "decidim.events.conferences.conference_updated",
-                      event_class: UpdateConferenceEvent,
-                      resource: my_conference,
-                      followers: [user]
-                    )
-
-            command.call
-          end
-        end
-        context "when the custom_link_url changes" do
-          let(:custom_link_url) { "http://rubyonrails.org" }
 
           it "notifies the change" do
             expect(Decidim::EventsManager)

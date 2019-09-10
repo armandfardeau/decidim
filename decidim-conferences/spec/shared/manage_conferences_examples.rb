@@ -45,11 +45,12 @@ shared_examples "manage conferences" do
 
         fill_in_i18n(
           :conference_custom_link_name,
-          "#conference-custom-link-name-tabs",
+          "#conference-custom_link_name-tabs",
           en: "My custom link",
           es: "My custom link",
           ca: "My custom link"
         )
+
         fill_in :conference_custom_link_url, with: "https://decidim.org"
 
         fill_in :conference_slug, with: "slug"
@@ -91,7 +92,7 @@ shared_examples "manage conferences" do
 
       fill_in_i18n(
         :conference_custom_link_name,
-        "#conference-custom-link-name-tabs",
+        "#conference-custom_link_name-tabs",
         en: "My new custom link",
         es: "My new custom link",
         ca: "My new custom link"

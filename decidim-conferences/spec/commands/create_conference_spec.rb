@@ -122,7 +122,7 @@ module Decidim::Conferences
 
       it "sets the custom link" do
         subject.call
-        expect(conference.custom_link_name[:en]).to eq "My custom link name"
+        expect(translated(conference.custom_link_name)).to eq "My custom link name"
         expect(conference.custom_link_url).to eq "https://decidim.org"
       end
 

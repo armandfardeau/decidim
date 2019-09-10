@@ -44,7 +44,7 @@ module Decidim
 
         validate :slug_uniqueness
 
-        validates :custom_link_name, translatable_presence: true, if: ->(form) { form.custom_link_url }
+        validates :custom_link_name, translatable_presence: true, if: ->(form) { form.custom_link_url.present? }
         validates :custom_link_url, presence: true, if: ->(form) { form.custom_link_name&.any? { |k, v| v.present? } }
 
         validates :registration_terms, translatable_presence: true, if: ->(form) { form.registrations_enabled? }
