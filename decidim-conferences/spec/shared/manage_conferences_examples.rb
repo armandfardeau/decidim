@@ -12,6 +12,7 @@ shared_examples "manage conferences" do
       click_link "New Conference"
     end
 
+    # rubocop:disable RSpec/ExampleLength
     it "creates a new conference" do
       within ".new_conference" do
         fill_in_i18n(
@@ -42,7 +43,6 @@ shared_examples "manage conferences" do
           es: "Descripción más larga",
           ca: "Descripció més llarga"
         )
-
         fill_in_i18n(
           :conference_custom_link_name,
           "#conference-custom_link_name-tabs",
@@ -50,7 +50,6 @@ shared_examples "manage conferences" do
           es: "My custom link",
           ca: "My custom link"
         )
-
         fill_in :conference_custom_link_url, with: "https://decidim.org"
 
         fill_in :conference_slug, with: "slug"
@@ -71,6 +70,7 @@ shared_examples "manage conferences" do
         expect(page).to have_content("My conference")
       end
     end
+    # rubocop:enable RSpec/ExampleLength
   end
 
   describe "updating a conference" do

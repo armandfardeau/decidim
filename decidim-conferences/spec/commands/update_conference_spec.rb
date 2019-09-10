@@ -135,8 +135,8 @@ module Decidim::Conferences
         it "traces the action", versioning: true do
           expect(Decidim.traceability)
             .to receive(:perform_action!)
-                  .with(:update, my_conference, user)
-                  .and_call_original
+            .with(:update, my_conference, user)
+            .and_call_original
 
           expect { command.call }.to change(Decidim::ActionLog, :count)
           action_log = Decidim::ActionLog.last
@@ -265,12 +265,12 @@ module Decidim::Conferences
           it "notifies the change" do
             expect(Decidim::EventsManager)
               .to receive(:publish)
-                    .with(
-                      event: "decidim.events.conferences.conference_updated",
-                      event_class: UpdateConferenceEvent,
-                      resource: my_conference,
-                      followers: [user]
-                    )
+              .with(
+                event: "decidim.events.conferences.conference_updated",
+                event_class: UpdateConferenceEvent,
+                resource: my_conference,
+                followers: [user]
+              )
 
             command.call
           end
@@ -281,7 +281,7 @@ module Decidim::Conferences
 
             expect(UpcomingConferenceNotificationJob)
               .to receive_message_chain(:set, :perform_later) # rubocop:disable RSpec/MessageChain
-                    .with(set: start_date - 2.days).with(my_conference.id, "1234")
+              .with(set: start_date - 2.days).with(my_conference.id, "1234")
 
             command.call
           end
@@ -293,12 +293,12 @@ module Decidim::Conferences
           it "notifies the change" do
             expect(Decidim::EventsManager)
               .to receive(:publish)
-                    .with(
-                      event: "decidim.events.conferences.conference_updated",
-                      event_class: UpdateConferenceEvent,
-                      resource: my_conference,
-                      followers: [user]
-                    )
+              .with(
+                event: "decidim.events.conferences.conference_updated",
+                event_class: UpdateConferenceEvent,
+                resource: my_conference,
+                followers: [user]
+              )
 
             command.call
           end
@@ -310,12 +310,12 @@ module Decidim::Conferences
           it "notifies the change" do
             expect(Decidim::EventsManager)
               .to receive(:publish)
-                    .with(
-                      event: "decidim.events.conferences.conference_updated",
-                      event_class: UpdateConferenceEvent,
-                      resource: my_conference,
-                      followers: [user]
-                    )
+              .with(
+                event: "decidim.events.conferences.conference_updated",
+                event_class: UpdateConferenceEvent,
+                resource: my_conference,
+                followers: [user]
+              )
 
             command.call
           end

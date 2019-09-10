@@ -129,8 +129,8 @@ module Decidim::Conferences
       it "traces the action", versioning: true do
         expect(Decidim.traceability)
           .to receive(:create)
-                .with(Decidim::Conference, current_user, kind_of(Hash))
-                .and_call_original
+          .with(Decidim::Conference, current_user, kind_of(Hash))
+          .and_call_original
 
         expect { subject.call }.to change(Decidim::ActionLog, :count)
         action_log = Decidim::ActionLog.last

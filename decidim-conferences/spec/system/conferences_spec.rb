@@ -192,6 +192,7 @@ describe "Conferences", type: :system do
         expect(page).not_to have_link(custom_link_name[:en], href: custom_link_url)
       end
     end
+
     context "when there is a custom link" do
       let!(:conference) do
         create(:conference,

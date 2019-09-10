@@ -47,7 +47,6 @@ FactoryBot.define do
       custom_link_name { generate_localized_title }
       custom_link_url { Faker::Internet.url }
     end
-
   end
 
   factory :conference_user_role, class: "Decidim::ConferenceUserRole" do

@@ -155,7 +155,7 @@ module Decidim
 
         def consultations
           @consultations ||= @conference.participatory_space_sibling_scope(:consultations)
-                               .where(id: @form.consultations_ids)
+                                        .where(id: @form.consultations_ids)
         end
 
         def link_consultations
