@@ -45,6 +45,11 @@
       <%= form.text_field :location %>
     </div>
 
+    <div class="row column">
+      <%= form.translated :text_field, :custom_link_name, autofocus: true %>
+      <%= form.text_field :custom_link_url %>
+    </div>
+
     <div class="row">
       <div class="columns xlarge-6">
         <%= form.upload :hero_image %>

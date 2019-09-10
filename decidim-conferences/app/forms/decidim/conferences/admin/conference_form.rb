@@ -15,10 +15,12 @@ module Decidim
         translatable_attribute :description, String
         translatable_attribute :objectives, String
         translatable_attribute :registration_terms, String
+        translatable_attribute :custom_link_name, String
 
         mimic :conference
 
         attribute :slug, String
+        attribute :custom_link_url, String
         attribute :hashtag, String
         attribute :promoted, Boolean
         attribute :scopes_enabled, Boolean
@@ -42,6 +44,9 @@ module Decidim
 
         validate :slug_uniqueness
 
+        validates :custom_link_name, translatable_presence: true, if: ->(form) { form.custom_link_url }
+        validates :custom_link_url, presence: true, if: ->(form) { form.custom_link_name&.any? { |k, v| v.present? } }
+
         validates :registration_terms, translatable_presence: true, if: ->(form) { form.registrations_enabled? }
         validates :available_slots, numericality: { greater_than_or_equal_to: 0 }, if: ->(form) { form.registrations_enabled? }
 
@@ -64,7 +69,7 @@ module Decidim
           return unless Decidim.participatory_space_manifests.map(&:name).include?(:participatory_processes)
 
           @processes_for_select ||= Decidim.find_participatory_space_manifest(:participatory_processes)
-                                           .participatory_spaces.call(current_organization)&.order(title: :asc)&.map do |process|
+                                      .participatory_spaces.call(current_organization)&.order(title: :asc)&.map do |process|
             [
               translated_attribute(process.title),
               process.id
@@ -76,7 +81,7 @@ module Decidim
           return unless Decidim.participatory_space_manifests.map(&:name).include?(:assemblies)
 
           @assemblies_for_select ||= Decidim.find_participatory_space_manifest(:assemblies)
-                                            .participatory_spaces.call(current_organization)&.order(title: :asc)&.map do |assembly|
+                                       .participatory_spaces.call(current_organization)&.order(title: :asc)&.map do |assembly|
             [
               translated_attribute(assembly.title),
               assembly.id
@@ -88,7 +93,7 @@ module Decidim
           return unless Decidim.participatory_space_manifests.map(&:name).include?(:consultations)
 
           @consultations_for_select ||= Decidim.find_participatory_space_manifest(:consultations)
-                                               .participatory_spaces.call(current_organization)&.order(title: :asc)&.map do |consultation|
+                                          .participatory_spaces.call(current_organization)&.order(title: :asc)&.map do |consultation|
             [
               translated_attribute(consultation.title),
               consultation.id
