@@ -43,6 +43,15 @@ shared_examples "manage conferences" do
           ca: "Descripció més llarga"
         )
 
+        fill_in_i18n(
+          :conference_custom_link_name,
+          "#conference-custom-link-name-tabs",
+          en: "My custom link",
+          es: "My custom link",
+          ca: "My custom link"
+        )
+        fill_in :conference_custom_link_url, with: "https://decidim.org"
+
         fill_in :conference_slug, with: "slug"
         fill_in :conference_hashtag, with: "#hashtag"
         attach_file :conference_hero_image, image1_path
@@ -79,6 +88,16 @@ shared_examples "manage conferences" do
         es: "Mi nuevo título",
         ca: "El meu nou títol"
       )
+
+      fill_in_i18n(
+        :conference_custom_link_name,
+        "#conference-custom-link-name-tabs",
+        en: "My new custom link",
+        es: "My new custom link",
+        ca: "My new custom link"
+      )
+      fill_in :conference_custom_link_url, with: "https://google.fr"
+
       attach_file :conference_banner_image, image3_path
 
       within ".edit_conference" do

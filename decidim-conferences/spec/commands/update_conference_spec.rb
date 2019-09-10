@@ -42,8 +42,8 @@ module Decidim::Conferences
             slogan_es: my_conference.slogan,
             location: my_conference.location,
             slug: my_conference.slug,
-            custom_link_name: my_conference.custom_link_name,
-            custom_link_url: my_conference.custom_link_url,
+            custom_link_name: { en: "My custom link name" },
+            custom_link_url: "https://decidim.org",
             hashtag: my_conference.hashtag,
             hero_image: nil,
             banner_image: nil,
@@ -135,8 +135,8 @@ module Decidim::Conferences
         it "traces the action", versioning: true do
           expect(Decidim.traceability)
             .to receive(:perform_action!)
-            .with(:update, my_conference, user)
-            .and_call_original
+                  .with(:update, my_conference, user)
+                  .and_call_original
 
           expect { command.call }.to change(Decidim::ActionLog, :count)
           action_log = Decidim::ActionLog.last
@@ -255,12 +255,12 @@ module Decidim::Conferences
           it "notifies the change" do
             expect(Decidim::EventsManager)
               .to receive(:publish)
-              .with(
-                event: "decidim.events.conferences.conference_updated",
-                event_class: UpdateConferenceEvent,
-                resource: my_conference,
-                followers: [user]
-              )
+                    .with(
+                      event: "decidim.events.conferences.conference_updated",
+                      event_class: UpdateConferenceEvent,
+                      resource: my_conference,
+                      followers: [user]
+                    )
 
             command.call
           end
@@ -271,7 +271,7 @@ module Decidim::Conferences
 
             expect(UpcomingConferenceNotificationJob)
               .to receive_message_chain(:set, :perform_later) # rubocop:disable RSpec/MessageChain
-              .with(set: start_date - 2.days).with(my_conference.id, "1234")
+                    .with(set: start_date - 2.days).with(my_conference.id, "1234")
 
             command.call
           end
@@ -283,12 +283,12 @@ module Decidim::Conferences
           it "notifies the change" do
             expect(Decidim::EventsManager)
               .to receive(:publish)
-              .with(
-                event: "decidim.events.conferences.conference_updated",
-                event_class: UpdateConferenceEvent,
-                resource: my_conference,
-                followers: [user]
-              )
+                    .with(
+                      event: "decidim.events.conferences.conference_updated",
+                      event_class: UpdateConferenceEvent,
+                      resource: my_conference,
+                      followers: [user]
+                    )
 
             command.call
           end
@@ -300,12 +300,49 @@ module Decidim::Conferences
           it "notifies the change" do
             expect(Decidim::EventsManager)
               .to receive(:publish)
-              .with(
-                event: "decidim.events.conferences.conference_updated",
-                event_class: UpdateConferenceEvent,
-                resource: my_conference,
-                followers: [user]
-              )
+                    .with(
+                      event: "decidim.events.conferences.conference_updated",
+                      event_class: UpdateConferenceEvent,
+                      resource: my_conference,
+                      followers: [user]
+                    )
+
+            command.call
+          end
+        end
+
+        context "when the custom_link_name changes" do
+          let(:custom_link_name) do
+            {
+              en: "New link"
+            }
+          end
+
+          it "notifies the change" do
+            expect(Decidim::EventsManager)
+              .to receive(:publish)
+                    .with(
+                      event: "decidim.events.conferences.conference_updated",
+                      event_class: UpdateConferenceEvent,
+                      resource: my_conference,
+                      followers: [user]
+                    )
+
+            command.call
+          end
+        end
+        context "when the custom_link_url changes" do
+          let(:custom_link_url) { "http://rubyonrails.org" }
+
+          it "notifies the change" do
+            expect(Decidim::EventsManager)
+              .to receive(:publish)
+                    .with(
+                      event: "decidim.events.conferences.conference_updated",
+                      event_class: UpdateConferenceEvent,
+                      resource: my_conference,
+                      followers: [user]
+                    )
 
             command.call
           end

@@ -79,6 +79,8 @@ module Decidim
             short_description: form.short_description,
             objectives: form.objectives,
             location: form.location,
+            custom_link_name: form.custom_link_name,
+            custom_link_url: form.custom_link_url,
             start_date: form.start_date,
             end_date: form.end_date,
             hero_image: form.hero_image,
@@ -153,7 +155,7 @@ module Decidim
 
         def consultations
           @consultations ||= @conference.participatory_space_sibling_scope(:consultations)
-                                        .where(id: @form.consultations_ids)
+                               .where(id: @form.consultations_ids)
         end
 
         def link_consultations

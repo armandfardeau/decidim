@@ -120,6 +120,12 @@ module Decidim::Conferences
         expect(current_user.follows?(conference)).to be true
       end
 
+      it "sets the custom link" do
+        subject.call
+        expect(conference.custom_link_name[:en]).to eq "My custom link name"
+        expect(conference.custom_link_url).to eq "https://decidim.org"
+      end
+
       it "traces the action", versioning: true do
         expect(Decidim.traceability)
           .to receive(:create)
