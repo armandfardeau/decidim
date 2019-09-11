@@ -44,6 +44,7 @@ FactoryBot.define do
     end
 
     trait :with_custom_link do
+      custom_link_enabled { true }
       custom_link_name { generate_localized_title }
       custom_link_url { Faker::Internet.url }
     end

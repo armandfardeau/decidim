@@ -46,6 +46,7 @@
     </div>
 
     <div class="row column">
+      <%= form.check_box :custom_link_enabled %>
       <%= form.translated :text_field, :custom_link_name, autofocus: true %>
       <%= form.text_field :custom_link_url %>
     </div>
@@ -97,7 +98,7 @@
     <div class="row column">
       <% if @form.processes_for_select %>
         <%= form.select :participatory_processes_ids,
-                        options_for_select(@form.processes_for_select, selected: processes_selected ),
+                        options_for_select(@form.processes_for_select, selected: processes_selected),
                         { include_blank: true },
                         { multiple: true, class: "chosen-select" } %>
       <% end %>
@@ -106,7 +107,7 @@
     <div class="row column">
       <% if @form.assemblies_for_select %>
         <%= form.select :assemblies_ids,
-                        options_for_select(@form.assemblies_for_select, selected: assemblies_selected ),
+                        options_for_select(@form.assemblies_for_select, selected: assemblies_selected),
                         { include_blank: true },
                         { multiple: true, class: "chosen-select" } %>
       <% end %>
@@ -115,7 +116,7 @@
     <div class="row column">
       <% if @form.consultations_for_select %>
         <%= form.select :consultations_ids,
-                        options_for_select(@form.consultations_for_select, selected: consultations_selected ),
+                        options_for_select(@form.consultations_for_select, selected: consultations_selected),
                         { include_blank: true },
                         { multiple: true, class: "chosen-select" } %>
       <% end %>

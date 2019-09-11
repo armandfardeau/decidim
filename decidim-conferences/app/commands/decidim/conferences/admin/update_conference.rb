@@ -79,6 +79,7 @@ module Decidim
             short_description: form.short_description,
             objectives: form.objectives,
             location: form.location,
+            custom_link_enabled: form.custom_link_enabled,
             custom_link_name: form.custom_link_name,
             custom_link_url: form.custom_link_url,
             start_date: form.start_date,

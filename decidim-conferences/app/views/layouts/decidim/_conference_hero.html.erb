@@ -24,7 +24,7 @@
             <%= current_participatory_space.location %>
           </button>
         </div>
-        <% if current_participatory_space.custom_link_name? %>
+        <% if current_participatory_space.custom_link_enabled? %>
           <div class="column medium-3 end">
             <%= link_to translated_attribute(current_participatory_space.custom_link_name), current_participatory_space.custom_link_url, class: "button button--sc light expanded" %>
           </div>

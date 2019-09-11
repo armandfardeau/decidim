@@ -20,6 +20,7 @@ module Decidim
         mimic :conference
 
         attribute :slug, String
+        attribute :custom_link_enabled, Boolean
         attribute :custom_link_url, String
         attribute :hashtag, String
         attribute :promoted, Boolean
@@ -44,8 +45,8 @@ module Decidim
 
         validate :slug_uniqueness
 
-        validates :custom_link_name, translatable_presence: true, if: ->(form) { form.custom_link_url.present? }
-        validates :custom_link_url, presence: true, if: ->(form) { form.custom_link_name&.any? { |_k, v| v.present? } }
+        validates :custom_link_name, translatable_presence: true, if: ->(form) { form.custom_link_enabled? }
+        validates :custom_link_url, presence: true, if: ->(form) { form.custom_link_enabled? }
 
         validates :registration_terms, translatable_presence: true, if: ->(form) { form.registrations_enabled? }
         validates :available_slots, numericality: { greater_than_or_equal_to: 0 }, if: ->(form) { form.registrations_enabled? }
