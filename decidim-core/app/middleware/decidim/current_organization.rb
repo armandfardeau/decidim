@@ -15,15 +15,17 @@ module Decidim
     #
     # env - A Hash.
     def call(env)
-      organization = detect_current_organization(env)
-      if organization
-        env["decidim.current_organization"] = organization
+      detect_current_organization(env)
+      find_secondary_host_org(env)
+
+      return @app.call(env) if Decidim::Organization.count.zero? && @detect_current_organization.blank? && @find_secondary_host_org.blank?
+      return [404, { "Content-Type" => "text/html", "Content-Length" => "0" }, []] if @detect_current_organization.blank? && @find_secondary_host_org.blank?
+
+      if @detect_current_organization
+        env["decidim.current_organization"] = @detect_current_organization
         @app.call(env)
       else
-        organization = find_secondary_host_org(env)
-        return @app.call(env) unless organization
-
-        location = new_location_for(env, organization.host)
+        location = new_location_for(env, @find_secondary_host_org.host)
 
         [301, { "Location" => location, "Content-Type" => "text/html", "Content-Length" => "0" }, []]
       end
@@ -33,12 +35,12 @@ module Decidim
 
     def detect_current_organization(env)
       host = host_for(env)
-      Decidim::Organization.find_by(host: host)
+      @detect_current_organization = Decidim::Organization.find_by(host: host)
     end
 
     def find_secondary_host_org(env)
       host = host_for(env)
-      Decidim::Organization.find_by("? = ANY(secondary_hosts)", host)
+      @find_secondary_host_org = Decidim::Organization.find_by("? = ANY(secondary_hosts)", host)
     end
 
     def host_for(env)
