@@ -47,7 +47,8 @@ jobs:
         name: Install Ruby deps
       - run: npm ci
         name: Install JS deps
-      - run: [ $RUN_TEST_IN_PARALLEL ] && bundle exec rake parallel:spec || bundle exec rspec
+      - run: |
+          [ $RUN_TEST_IN_PARALLEL ] && bundle exec rake parallel:spec || bundle exec rspec
         name: RSpec
       - uses: codecov/codecov-action@v1
         with:
