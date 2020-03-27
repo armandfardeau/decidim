@@ -15,20 +15,24 @@ module Decidim
       source_root File.expand_path("app_templates", __dir__)
 
       class_option :app_name, type: :string,
-                              default: nil,
-                              desc: "The name of the app"
+                   default: nil,
+                   desc: "The name of the app"
 
       class_option :recreate_db, type: :boolean,
-                                 default: false,
-                                 desc: "Recreate db after installing decidim"
+                   default: false,
+                   desc: "Recreate db after installing decidim"
+
+      class_option :run_test_in_parallel, type: :boolean,
+                   default: false,
+                   desc: "run_test_in_parallel"
 
       class_option :seed_db, type: :boolean,
-                             default: false,
-                             desc: "Seed db after installing decidim"
+                   default: false,
+                   desc: "Seed db after installing decidim"
 
       class_option :skip_gemfile, type: :boolean,
-                                  default: false,
-                                  desc: "Don't generate a Gemfile for the application"
+                   default: false,
+                   desc: "Don't generate a Gemfile for the application"
 
       def install
         route "mount Decidim::Core::Engine => '/'"
@@ -104,7 +108,9 @@ module Decidim
 
       def copy_migrations
         rails "decidim:upgrade"
-        recreate_db if options[:recreate_db]
+        return unless options[:recreate_db]
+
+        options[:run_test_in_parallel] ? run_test_in_parallel : recreate_db
       end
 
       def letter_opener_web
@@ -136,6 +142,16 @@ module Decidim
         rails "db:seed" if options[:seed_db]
 
         rails "db:test:prepare"
+      end
+
+      def run_test_in_parallel
+        soft_rails "db:environment:set"
+
+        rails "parallel:drop"
+
+        rails "parallel:create"
+
+        rails "parallel:migrate"
       end
 
       # Runs rails commands in a subprocess, and aborts if it doesn't suceeed

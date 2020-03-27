@@ -29,7 +29,8 @@ namespace :decidim do
       "../..",
       "--recreate_db",
       "--skip_gemfile",
-      "--demo"
+      "--demo",
+      run_test_in_parallel.to_s
     )
   end
 
@@ -47,5 +48,11 @@ namespace :decidim do
         "--demo"
       )
     end
+  end
+
+  private
+
+  def run_test_in_parallel
+    "--run_test_in_parallel" if ENV["RUN_TEST_IN_PARALLEL"]
   end
 end

@@ -45,6 +45,10 @@ module Decidim
                                  default: false,
                                  desc: "Recreate test database"
 
+      class_option :run_test_in_parallel, type: :boolean,
+                   default: false,
+                   desc: "run_test_in_parallel"
+
       class_option :seed_db, type: :boolean,
                              default: false,
                              desc: "Seed test database"
@@ -192,6 +196,7 @@ module Decidim
         Decidim::Generators::InstallGenerator.start(
           [
             "--recreate_db=#{options[:recreate_db]}",
+            "--run_test_in_parallel=#{options[:run_test_in_parallel]}",
             "--seed_db=#{options[:seed_db]}",
             "--skip_gemfile=#{options[:skip_gemfile]}",
             "--app_name=#{app_name}"

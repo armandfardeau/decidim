@@ -58,6 +58,6 @@ jobs:
       - run: bundle install --jobs 4 --retry 3
         name: Install Ruby deps
         working-directory: ${{ env.DECIDIM_MODULE }}
-      - run: bundle exec rake
+      - run: [ $RUN_TEST_IN_PARALLEL ] && bundle exec rake parallel:spec || bundle exec rake
         name: RSpec
         working-directory: ${{ env.DECIDIM_MODULE }}

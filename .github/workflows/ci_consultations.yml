@@ -65,7 +65,7 @@ jobs:
       - run: mkdir -p ./spec/decidim_dummy_app/tmp/screenshots
         name: Create the screenshots folder
       - uses: nanasess/setup-chromedriver@v1.0.1
-      - run: bundle exec rake
+      - run: [ $RUN_TEST_IN_PARALLEL ] && bundle exec rake parallel:spec || bundle exec rake
         name: RSpec
         working-directory: ${{ env.DECIDIM_MODULE }}
       - uses: codecov/codecov-action@v1
