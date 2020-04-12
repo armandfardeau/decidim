@@ -12,6 +12,12 @@ module Decidim
       def metrics
         @metrics ||= MetricChartsPresenter.new(organization: current_organization)
       end
+
+      private
+
+      def cacheable?
+        true
+      end
     end
   end
 end

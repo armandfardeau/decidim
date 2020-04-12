@@ -44,6 +44,10 @@ module Decidim
 
       private
 
+      def cacheable?
+        true
+      end
+
       def activities
         @activities ||= HomeActivitySearch.new(
           organization: current_organization,

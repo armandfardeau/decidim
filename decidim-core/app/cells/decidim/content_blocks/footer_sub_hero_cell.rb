@@ -7,5 +7,11 @@ module Decidim
 
       delegate :current_user, to: :controller
     end
+
+    private
+
+    def cacheable?
+      true
+    end
   end
 end

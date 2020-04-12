@@ -11,6 +11,12 @@ module Decidim
 
         render
       end
+
+      private
+
+      def cacheable?
+        true
+      end
     end
   end
 end

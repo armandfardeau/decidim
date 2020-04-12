@@ -318,6 +318,10 @@ module Decidim
     %w(all participants)
   end
 
+  config_accessor :homepage_cache_expiration_time do
+    5.minutes
+  end
+
   # Public: Registers a global engine. This method is intended to be used
   # by component engines that also offer unscoped functionality
   #

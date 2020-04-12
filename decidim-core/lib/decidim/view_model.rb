@@ -10,6 +10,8 @@ module Decidim
     include Decidim::ActionAuthorization
     include Decidim::ActionAuthorizationHelper
     include Decidim::ReplaceButtonsHelper
+    include Cell::Caching::Notifications
+    cache :show, expires_in: Decidim.homepage_cache_expiration_time, if: :cacheable?
 
     delegate :current_organization, to: :controller
 
@@ -21,6 +23,10 @@ module Decidim
 
     def decidim
       Decidim::Core::Engine.routes.url_helpers
+    end
+
+    def cacheable?
+      false
     end
   end
 end

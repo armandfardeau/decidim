@@ -12,6 +12,12 @@ module Decidim
       def stats
         @stats ||= HomeStatsPresenter.new(organization: current_organization)
       end
+
+      private
+
+      def cacheable?
+        true
+      end
     end
   end
 end

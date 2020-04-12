@@ -18,6 +18,12 @@ module Decidim
       def background_image
         model.images_container.background_image.big.url
       end
+
+      private
+
+      def cacheable?
+        true
+      end
     end
   end
 end
