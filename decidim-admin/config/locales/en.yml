@@ -1,4 +1,5 @@
 ---
+
 en:
   activemodel:
     attributes:
@@ -139,6 +140,15 @@ en:
         site: Website
   decidim:
     admin:
+      organization_cache:
+        update:
+          clear_cache_success: Cache has been deleted
+          clear_cache_alert: Cache has not been deleted
+        edit:
+          clear_cache_title: Clear cache
+          clear_cache_confirm: Confirm cache deletion, this action is irreversible
+          clear_cache: Clear cache
+          clear_cache_explanation: Caching means to store content generated during the request-response cycle and to reuse it when responding to similar requests. There may be a delay between the appearance of the information and the invalidation of the cache. If you want this information to appear instantly, you can clear the cache. However, this may have a negative impact of the performance of the application, until the cache is generated again.
       actions:
         add: Add
         browse: Browse
@@ -370,6 +380,7 @@ en:
             new_managed_user_promotion: New managed participant promotion
             promote: Promote
       menu:
+        cache: Application cache
         admin_log: Admin activity log
         admins: Admins
         appearance: Appearance

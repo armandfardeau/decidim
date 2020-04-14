@@ -11,6 +11,8 @@ Decidim::Admin::Engine.routes.draw do
       member do
         get :users
       end
+
+      resource :cache, only: [:edit, :update], controller: "organization_cache"
     end
 
     Decidim.participatory_space_manifests.each do |manifest|

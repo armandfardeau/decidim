@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title"><%= t(".clear_cache_title") %></h2>
+  </div>
+  <div class="card-section">
+    <div class="row column">
+      <%= form_for :cache, url: organization_cache_path, method: :patch, html: { class: "form " }, data: { confirm: t(".clear_cache_confirm") } do |form| %>
+        <p><%= t(".clear_cache_explanation") %></p>
+        <div class="button--double form-general-submit">
+          <%= form.submit t(".clear_cache") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
