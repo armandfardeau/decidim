@@ -21,6 +21,22 @@ module Decidim
 
     include_examples "has reference"
 
+    describe ".states" do
+      it "returns the correct enumerator" do
+        expect(subject.class.states).to eq(
+          "created" => 0,
+          "validating" => 1,
+          "discarded" => 2,
+          "published" => 3,
+          "rejected" => 4,
+          "accepted" => 5,
+          "examinated" => 6,
+          "debatted" => 7,
+          "classified" => 8
+        )
+      end
+    end
+
     context "when created initiative" do
       let(:initiative) { create(:initiative, :created) }
       let(:administrator) { create(:user, :admin, organization: initiative.organization) }

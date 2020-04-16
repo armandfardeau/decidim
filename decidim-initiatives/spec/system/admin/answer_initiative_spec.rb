@@ -71,6 +71,36 @@ describe "User answers the initiative", type: :system do
           )
           expect(page).to have_css("#initiative_signature_start_date")
           expect(page).to have_css("#initiative_signature_end_date")
+          expect(page).to have_css("#initiative_state")
+          expect(page).to have_css("#initiative_answer_date", visible: false)
+
+          fill_in :initiative_signature_start_date, with: 1.day.ago
+        end
+
+        submit_and_validate
+      end
+    end
+
+    context "when initiative is in examinated state" do
+      before do
+        initiative.examinated!
+      end
+
+      it "signature dates can be edited in answer" do
+        page.find(".action-icon--answer").click
+
+        within ".edit_initiative_answer" do
+          fill_in_i18n_editor(
+            :initiative_answer,
+            "#initiative-answer-tabs",
+            en: "An answer",
+            es: "Una respuesta",
+            ca: "Una resposta"
+          )
+          expect(page).to have_css("#initiative_signature_start_date")
+          expect(page).to have_css("#initiative_signature_end_date")
+          expect(page).to have_css("#initiative_state")
+          expect(page).to have_css("#initiative_answer_date")
 
           fill_in :initiative_signature_start_date, with: 1.day.ago
         end
@@ -90,6 +120,8 @@ describe "User answers the initiative", type: :system do
         within ".edit_initiative_answer" do
           expect(page).to have_no_css("#initiative_signature_start_date")
           expect(page).to have_no_css("#initiative_signature_end_date")
+          expect(page).to have_no_css("#initiative_state")
+          expect(page).to have_no_css("#initiative_answer_date")
         end
       end
     end

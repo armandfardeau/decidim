@@ -69,6 +69,7 @@ FactoryBot.define do
     signature_type { "online" }
     signature_start_date { Date.current - 1.day }
     signature_end_date { Date.current + 120.days }
+    answer_date {}
 
     scoped_type do
       create(:initiatives_type_scope,
@@ -112,6 +113,21 @@ FactoryBot.define do
 
     trait :rejected do
       state { "rejected" }
+    end
+
+    trait :examinated do
+      state { "examinated" }
+      answer_date { Date.current - 3.days }
+    end
+
+    trait :debatted do
+      state { "debatted" }
+      answer_date { Date.current - 3.days }
+    end
+
+    trait :classified do
+      state { "classified" }
+      answer_date { Date.current - 3.days }
     end
 
     trait :online do
