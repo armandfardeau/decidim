@@ -13,7 +13,8 @@ module Decidim
       #
       # Returns a String.
       def state_badge_css_class(initiative)
-        return "success" if initiative.accepted?
+        return "success" if initiative.accepted? || initiative.debatted? || initiative.published?
+        return "alert" if initiative.examinated?
 
         "warning"
       end
@@ -24,9 +25,9 @@ module Decidim
       #
       # Returns a String.
       def humanize_state(initiative)
-        I18n.t(initiative.accepted? ? "accepted" : "expired",
-               scope: "decidim.initiatives.states",
-               default: :expired)
+        return I18n.t("expired", scope: "decidim.initiatives.states") if initiative.rejected?
+
+        I18n.t(initiative.state, scope: "decidim.initiatives.states")
       end
 
       # Public: The state of an initiative from an administration perspective in
@@ -98,6 +99,10 @@ module Decidim
         html_options["onclick"] = "event.preventDefault();"
 
         send("#{tag}_to", "", html_options, &block)
+      end
+
+      def display_badge?(initiative)
+        initiative.rejected? || initiative.accepted? || initiative.debatted? || initiative.examinated? || initiative.classified?
       end
     end
   end

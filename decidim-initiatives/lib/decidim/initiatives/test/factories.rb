@@ -81,6 +81,12 @@ FactoryBot.define do
       create_list(:initiatives_committee_member, 3, initiative: initiative)
     end
 
+    trait :with_answer do
+      answer { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
+      answer_url { ::Faker::Internet.url }
+      answered_at { Time.current }
+    end
+
     trait :created do
       state { "created" }
       published_at { nil }

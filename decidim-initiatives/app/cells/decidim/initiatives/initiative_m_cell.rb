@@ -25,11 +25,11 @@ module Decidim
 
       def state_classes
         case state
-        when "accepted", "published"
+        when "accepted", "published", "debatted"
           ["success"]
-        when "rejected", "discarded"
+        when "rejected", "discarded", "classified"
           ["alert"]
-        when "validating"
+        when "validating", "examinated"
           ["warning"]
         else
           ["muted"]

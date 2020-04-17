@@ -1,4 +1,5 @@
 ---
+
 en:
   activemodel:
     attributes:
@@ -470,6 +471,9 @@ en:
           recent: Most recent
         result:
           answer_title:
+            debatted: This proposal has been debatted because
+            examinated: This proposal has been examinated because
+            classified: This proposal has been classified because
             accepted: This proposal has been accepted because
             created: This proposal has been created
             discarded: This proposal has been discarded because
@@ -530,6 +534,9 @@ en:
             active_initiatives: Active initiatives
             see_all_initiatives: See all initiatives
       states:
+        debatted: Debatted
+        examinated: Examinated
+        classified: Classified
         accepted: Accepted
         expired: Expired
       unavailable_scope: Unavailable scope

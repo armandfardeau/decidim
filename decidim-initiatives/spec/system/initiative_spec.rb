@@ -46,6 +46,19 @@ describe "Initiative", type: :system do
       end
     end
 
+    context "when in a manual state" do
+      let(:base_initiative) { create(:initiative, :debatted, :with_answer, organization: organization) }
+
+      it "displays the initiative status with the appropriate color" do
+        expect(page).to have_css(".initiative-status.success")
+        expect(page).to have_css(".initiative-answer.success")
+      end
+
+      it "displays date" do
+        expect(page).to have_content(I18n.l(base_initiative.answer_date, format: :short))
+      end
+    end
+
     it_behaves_like "has attachments"
   end
 end

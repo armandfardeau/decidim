@@ -59,5 +59,15 @@ describe "Initiatives", type: :system do
       click_link(translated(initiative.title, locale: :en))
       expect(page).to have_current_path(decidim_initiatives.initiative_path(initiative))
     end
+
+    context "when in a manual state" do
+      let(:base_initiative) { create(:initiative, :debatted, organization: organization) }
+
+      it "displays the correct badge status" do
+        within "#initiative_#{base_initiative.id}" do
+          expect(page).to have_css(".success.card__text--status")
+        end
+      end
+    end
   end
 end

@@ -46,7 +46,7 @@ module Decidim
         return unless [:initiative, :participatory_space].include?(permission_action.subject) &&
                       permission_action.action == :read
 
-        return allow! if initiative.published? || initiative.rejected? || initiative.accepted?
+        return allow! if readable?(initiative)
         return allow! if user && (initiative.has_authorship?(user) || user.admin?)
 
         disallow!
@@ -165,6 +165,10 @@ module Decidim
           Decidim::Initiatives.do_not_require_authorization ||
           UserAuthorizations.for(user).any?
         )
+      end
+
+      def readable?(initiative)
+        initiative.published? || initiative.rejected? || initiative.accepted? || initiative.debatted? || initiative.examinated? || initiative.classified?
       end
     end
   end

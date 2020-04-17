@@ -138,6 +138,24 @@ describe Decidim::Initiatives::Permissions do
       it { is_expected.to eq true }
     end
 
+    context "when initiative is debatted" do
+      let(:initiative) { create :initiative, :debatted, organization: organization }
+
+      it { is_expected.to eq true }
+    end
+
+    context "when initiative is examinated" do
+      let(:initiative) { create :initiative, :examinated, organization: organization }
+
+      it { is_expected.to eq true }
+    end
+
+    context "when initiative is classified" do
+      let(:initiative) { create :initiative, :classified, organization: organization }
+
+      it { is_expected.to eq true }
+    end
+
     context "when initiative is rejected" do
       let(:initiative) { create :initiative, :rejected, organization: organization }
 
