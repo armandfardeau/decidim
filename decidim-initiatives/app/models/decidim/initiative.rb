@@ -187,9 +187,13 @@ module Decidim
     delegate :supports_required, to: :scoped_type
 
     def votes_enabled?
-      published? &&
+      votes_enabled_state? &&
         signature_start_date <= Date.current &&
         signature_end_date >= Date.current
+    end
+
+    def votes_enabled_state?
+      published? || examinated? || debatted?
     end
 
     # Public: Check if the user has voted the question.

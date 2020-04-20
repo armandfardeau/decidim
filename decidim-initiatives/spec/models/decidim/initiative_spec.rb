@@ -276,5 +276,33 @@ module Decidim
         it { is_expected.to eq false }
       end
     end
+
+    describe "#votes_enabled?" do
+      subject { initiative.votes_enabled? }
+
+      context "when published" do
+        let(:initiative) { build :initiative, :published }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "when examinated" do
+        let(:initiative) { build :initiative, :examinated }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "when debatted" do
+        let(:initiative) { build :initiative, :debatted }
+
+        it { is_expected.to be_truthy }
+      end
+
+      context "when classified" do
+        let(:initiative) { build :initiative, :classified }
+
+        it { is_expected.to be_falsy }
+      end
+    end
   end
 end
