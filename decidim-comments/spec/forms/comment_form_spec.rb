@@ -37,7 +37,7 @@ module Decidim
       end
 
       context "when body is too long" do
-        let(:body) { "c" * 1001 }
+        let(:body) { "c" * 5001 }
 
         it { is_expected.not_to be_valid }
       end
