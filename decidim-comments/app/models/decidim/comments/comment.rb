@@ -31,7 +31,7 @@ module Decidim
       validates :depth, numericality: { greater_than_or_equal_to: 0 }
       validates :alignment, inclusion: { in: [0, 1, -1] }
 
-      validates :body, length: { maximum: 1000 }
+      validates :body, length: { maximum: 5000 }
 
       validate :commentable_can_have_comments
 
