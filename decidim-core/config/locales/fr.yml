@@ -179,7 +179,7 @@ fr:
             L'amendement pour %{amendable_type} %{proposal_link} a été accepté
             le <strong>%{date}</strong>.
           evaluating: |-
-            Cet amendement pour le %{amendable_type} %{amendable_link}
+            Cet amendement pour le %{amendable_type} %{proposal_link}
             est en cours d’évaluation.
           promoted: Promouvé à un %{amendable_type}.
           rejected: "Cet amendement pour la proposition %{amendable_type}\n%{proposal_link}\na été rejeté le <strong>%{date}</strong>."
@@ -1159,7 +1159,7 @@ fr:
         currently_waiting_confirmation_for_email: 'En attente de confirmation pour: %{email}'
         leave_blank_if_you_don_t_want_to_change_it: laisser vide si vous ne voulez pas le changer
         title: Modifier %{resource}
-        unhappy: Pas satisfait ? 
+        unhappy: Pas satisfait ?
         update: Mettre à jour
         we_need_your_current_password_to_confirm_your_changes: nous avons besoin de votre mot de passe actuel pour confirmer vos modifications
       new:

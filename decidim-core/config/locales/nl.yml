@@ -174,15 +174,15 @@ nl:
           help_text: Bekijk de wijzigingen en accepteer of verwerp dit amendement. Er wordt een melding verzonden aan de auteur(s).
         announcement:
           accepted: |-
-            Dit amendement voor de %{amendable_type} %{amendable_link} is
+            Dit amendement voor de %{amendable_type} %{proposal_link} is
             aanvaard op <strong>%{announcement_date}</strong>.
           evaluating: |-
-            Dit amendement voor de %{amendable_type} %{amendable_link}
+            Dit amendement voor de %{amendable_type} %{proposal_link}
             wordt geëvalueerd.
           promoted: Gepromoveerd naar een %{amendable_type}.
           rejected: "Deze emendatie voor de %{amendable_type} %{amendable_link}\nwerd afgewezen op <strong>%{announcement_date}</strong>."
           withdrawn: |-
-            Dit amendement voor de %{amendable_type} %{amendable_link}
+            Dit amendement voor de %{amendable_type} %{proposal_link}
             is door de auteur ingetrokken.
       new:
         amendment_author: Amendement auteur
@@ -657,7 +657,7 @@ nl:
     group_members:
       accept:
         error: Er is een fout opgetreden bij het accepteren van dit deelnameverzoek
-        success: Het deelnameverzoek is geaccepteerd 
+        success: Het deelnameverzoek is geaccepteerd
       actions:
         are_you_sure: Weet je het zeker?
         promote_to_admin: Beheerder maken
