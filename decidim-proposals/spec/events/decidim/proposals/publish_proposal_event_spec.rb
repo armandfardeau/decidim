@@ -21,6 +21,15 @@ module Decidim
         it "is generated correctly" do
           expect(subject.email_subject).to eq("New proposal \"#{resource.title}\" by @#{author.nickname}")
         end
+
+        context "when title contains diacritics" do
+          let(:component) { create(:proposal_component) }
+          let(:resource) { create :proposal, title: "A nice proposal & else", component: component }
+
+          it "is generated correctly" do
+            expect(subject.email_subject).to eq("New proposal \"A nice proposal & else\" by @#{author.nickname}")
+          end
+        end
       end
 
       describe "email_intro" do

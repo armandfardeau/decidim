@@ -32,7 +32,7 @@ module Decidim
       end
 
       def email_subject
-        I18n.t("email_subject", i18n_options).html_safe
+        I18n.t("email_subject", i18n_options(escape: false)).html_safe
       end
 
       def email_intro
@@ -67,9 +67,9 @@ module Decidim
       end
 
       # Public: The Hash of options to pass to the I18.t method.
-      def i18n_options
+      def i18n_options(escape: true)
         default_i18n_options.merge(event_interpolations).transform_values do |value|
-          if value.is_a?(String)
+          if value.is_a?(String) && escape
             decidim_html_escape(value)
           else
             value

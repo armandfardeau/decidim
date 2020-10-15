@@ -13,6 +13,7 @@ describe Decidim::Debates::CreateDebateEvent do
   let(:space_path) { resource_locator(space).path }
   let(:extra) { { type: type.to_s } }
   let(:debate_title) { decidim_html_escape(translated(resource.title)) }
+  let(:unescaped_debate_title) { translated(resource.title) }
 
   describe "resource_text" do
     let(:type) { "" }
@@ -30,7 +31,7 @@ describe Decidim::Debates::CreateDebateEvent do
 
     describe "email_subject" do
       it "is generated correctly" do
-        expect(subject.email_subject).to eq("New debate \"#{debate_title}\" by @#{author.nickname}")
+        expect(subject.email_subject).to eq("New debate \"#{unescaped_debate_title}\" by @#{author.nickname}")
       end
     end
 
@@ -67,7 +68,7 @@ describe Decidim::Debates::CreateDebateEvent do
 
     describe "email_subject" do
       it "is generated correctly" do
-        expect(subject.email_subject).to eq("New debate \"#{debate_title}\" on #{translated(space.title)}")
+        expect(subject.email_subject).to eq("New debate \"#{unescaped_debate_title}\" on #{translated(space.title)}")
       end
     end
 

@@ -1308,6 +1308,9 @@ en:
     whatsapp_app: WhatsApp
     whatsapp_web: WhatsApp
     xing: Xing
+  some:
+    event:
+      email_subject: email subject %{resource_title}
   time:
     formats:
       day_of_month: "%b %d"

@@ -22,6 +22,14 @@ module Decidim
         expect(subject.i18n_options[:resource_title])
           .to eq "&lt;script&gt;alert(&#39;Hey&#39;);&lt;/script&gt;"
       end
+
+      describe "email_subject" do
+        let(:resource) { create(:dummy_resource, title: "<script>alert('&Hey');</script>") }
+
+        it "preserves it" do
+          expect(subject.email_subject).to include("<script>alert('&Hey');</script>")
+        end
+      end
     end
   end
 end
